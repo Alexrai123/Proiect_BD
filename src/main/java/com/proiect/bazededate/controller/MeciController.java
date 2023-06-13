@@ -14,7 +14,7 @@ public class MeciController {
     private final MeciService meciService;
 
     @PostMapping
-    public Meci create(@RequestBody Meci meci) {
+    public Meci create(@RequestBody Meci meci) throws Exception {
         return meciService.create(meci);
     }
 
@@ -24,7 +24,7 @@ public class MeciController {
     }
 
     @PutMapping
-    public Meci update(@RequestBody Meci meciToUpdate) {
+    public Meci update(@RequestBody Meci meciToUpdate) throws Exception {
         return meciService.update(meciToUpdate);
     }
 

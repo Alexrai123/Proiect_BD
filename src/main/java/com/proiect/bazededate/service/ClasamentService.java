@@ -2,11 +2,12 @@ package com.proiect.bazededate.service;
 
 import com.proiect.bazededate.models.Clasament;
 import com.proiect.bazededate.repository.ClasamentRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.proiect.bazededate.repository.EchipaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,19 +15,29 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ClasamentService {
     private final ClasamentRepository clasamentRepository;
+    private final EchipaRepository echipaRepository;
 
     public Clasament create(Clasament clasament) {
         Clasament clasamentToCreate = new Clasament();
-        //aici iara cheie straina plm: cred ? clasamentToCreate.setId(clasament.getId());
+        clasamentToCreate.setEchipa(echipaRepository.findById(clasament.getEchipa().getId()).orElse(null));
+
+
         clasamentToCreate.setPuncte(clasament.getPuncte());
         clasamentToCreate.setVictorii(clasament.getVictorii());
         clasamentToCreate.setEgaluri(clasament.getEgaluri());
         clasamentToCreate.setInfrangeri(clasament.getInfrangeri());
+        clasamentToCreate.setLocInClasament(clasament.getLocInClasament());
         return clasamentRepository.save(clasamentToCreate);
     }
 
     public Clasament getOne(UUID idClasament) {
         return clasamentRepository.findById(idClasament).orElseThrow(null);
+    }
+
+    public List<Clasament> getAll() {
+        List<Clasament> clasamentTotal = clasamentRepository.findAll();
+        clasamentTotal.sort(Comparator.comparing(Clasament::getLocInClasament));
+        return clasamentTotal;
     }
 
     public Clasament update(Clasament clasamentToUpdate) {

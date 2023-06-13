@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Jucator {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     private String nume;

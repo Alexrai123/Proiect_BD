@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Stadion {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     private Integer capacitate;

@@ -16,6 +16,7 @@ import java.util.UUID;
 
 public class Meci {
     @Id
+    @GeneratedValue
     private UUID id;
 
     private LocalDate dateMeciului;

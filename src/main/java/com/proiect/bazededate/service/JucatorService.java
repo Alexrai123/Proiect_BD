@@ -1,9 +1,8 @@
 package com.proiect.bazededate.service;
 
 import com.proiect.bazededate.models.Jucator;
+import com.proiect.bazededate.repository.EchipaRepository;
 import com.proiect.bazededate.repository.JucatorRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class JucatorService {
     private final JucatorRepository jucatorRepository;
+    private final EchipaRepository echipaRepository;
 
     public Jucator create(Jucator jucator) {
         Jucator jucatorToCreate = new Jucator();
@@ -21,6 +21,7 @@ public class JucatorService {
         jucatorToCreate.setPrenume(jucator.getPrenume());
         jucatorToCreate.setPozitie(jucator.getPozitie());
         jucatorToCreate.setTaraOrigine(jucator.getTaraOrigine());
+        jucatorToCreate.setEchipa(echipaRepository.findById(jucator.getEchipa().getId()).orElse(null));
         //asta trebuie ? e cheie straina plm: jucatorToCreate.setEchipa(jucator.getEchipa());
         return jucatorRepository.save(jucatorToCreate);
     }

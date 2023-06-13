@@ -5,6 +5,7 @@ import com.proiect.bazededate.service.ClasamentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +22,10 @@ public class ClasamentController {
     @GetMapping("/{idClasament}")
     public Clasament getOne(@PathVariable String idClasament) {
         return clasamentService.getOne(UUID.fromString(idClasament));
+    }
+    @GetMapping("/all")
+    public List<Clasament> getAll() {
+        return clasamentService.getAll();
     }
 
     @PutMapping
